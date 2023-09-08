@@ -1,0 +1,129 @@
+The Assignment :Please develop a Flight-Search API (only backend) that suites the following  use cases:
+
+ 
+
+Flight Number | Origin |Destination |Departure Time |Arrival Time |Price
+A101|AMS|DEL|11:00|17:00|850 EURO
+B101|AMS|BOM|12:00|19:30|750 EURO
+C101|AMS|BLR|13:00|18:30|800 EURO
+D101|AMS|MAA|09:00|15:00|600 EURO
+E101|MAA|BOM|16:00|17:30|100 EURO
+F101|BOM|DEL|20:30|21:30|80 EURO
+G101|BOM|DEL|18:00|19:30|100 EURO
+A201|LHR|DEL|11:30|17:00|600 EURO
+B201|LHR|BOM|12:35|19:30|750 EURO
+C201|LHR|BLR|13:45|18:30|800 EURO
+D201|LHR|MAA|09:00|15:00|600 EURO
+E201|DEL|BOM|18:45|20:15|100 EURO
+F201|BOM|DEL|21:15|22:30|80 EURO
+G01 |BOM|DEL|20:20|21:30|100 EURO
+
+ 
+
+ 
+
+Use case: 
+- User can be able to find list of flights from Origin - Destination
+- User can supply extra parameters in the request to sort results based on price, duration...
+
+
+
+https://www.convertsimple.com/convert-query-string-to-json/
+https://codebeautify.org/json-url-decode
+
+https://jsonformatter.org/json-url-encode
+
+
+
+All below query Json's has been transformed to Query String, First is the Json  and blow it is the transformed Query string
+
+1.
+
+{
+    "dataOption" : "all",
+    "searchCriteriaList": [
+        {
+            "filterKey": "origin",
+            "operation": "eq",
+            "value": "BOM"
+        },
+		{
+            "filterKey": "destination",
+            "operation": "eq",
+            "value": "DEL"
+        }
+    ]
+}
+
+http://localhost:8080/flight-api/v1/flights?searchString=%7B%0A%20%20%20%20%22dataOption%22%20%3A%20%22all%22%2C%0A%20%20%20%20%22searchCriteriaList%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22origin%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22BOM%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%09%09%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22destination%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22DEL%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D
+
+2. {
+    "dataOption" : "all",
+    "searchCriteriaList": [
+        {
+            "filterKey": "origin",
+            "operation": "eq",
+            "value": "BOM"
+        },
+		{
+            "filterKey": "destination",
+            "operation": "eq",
+            "value": "DEL"
+        }
+    ]
+}
+
+Sort By price
+http://localhost:8080/flight-api/v1/flights?searchString=%7B%0A%20%20%20%20%22dataOption%22%20%3A%20%22all%22%2C%0A%20%20%20%20%22searchCriteriaList%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22origin%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22BOM%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%09%09%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22destination%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22DEL%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D&&sortedBy=price
+
+3. 
+{
+    "dataOption" : "all",
+    "searchCriteriaList": [
+        {
+            "filterKey": "origin",
+            "operation": "eq",
+            "value": "BOM"
+        },
+		{
+            "filterKey": "destination",
+            "operation": "eq",
+            "value": "DEL"
+        }
+    ]
+}
+
+Sorted By duration
+
+http://localhost:8080/flight-api/v1/flights?searchString=%7B%0A%20%20%20%20%22dataOption%22%20%3A%20%22all%22%2C%0A%20%20%20%20%22searchCriteriaList%22%3A%20%5B%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22origin%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22BOM%22%0A%20%20%20%20%20%20%20%20%7D%2C%0A%09%09%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22destination%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22DEL%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D&&sortedBy=duration
+
+4. Search against FlightID
+
+ {
+    "dataOption" : "all",
+    "searchCriteriaList":[ 
+        {
+            "filterKey": "flightId",
+            "operation": "eq",
+            "value": "A101"
+        }
+    ]
+}
+http://localhost:8080/flight-api/v1/flights?searchString=%7B%0A%20%20%20%20%22dataOption%22%20%3A%20%22all%22%2C%0A%20%20%20%20%22searchCriteriaList%22%3A%5B%20%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22flightId%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22eq%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22A101%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D
+
+5. Search against starts with
+
+{
+    "dataOption" : "all",
+    "searchCriteriaList":[ 
+        {
+            "filterKey": "origin",
+            "operation": "bw",
+            "value": "LH"
+        }
+    ]
+}
+
+http://localhost:8080/flight-api/v1/flights?searchString=%7B%0A%20%20%20%20%22dataOption%22%20%3A%20%22all%22%2C%0A%20%20%20%20%22searchCriteriaList%22%3A%5B%20%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22filterKey%22%3A%20%22origin%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22operation%22%3A%20%22bw%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22value%22%3A%20%22LH%22%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%7D
+
+
