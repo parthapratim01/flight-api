@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /flight-api
+spring:
+  application:
+    name: flight-api
+  datasource:
+    url: jdbc:mysql://localhost:3306/user_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
