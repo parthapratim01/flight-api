@@ -21,7 +21,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class FlightDTO {
 
-
+    @NotBlank(message = "FlightId cannot be blank or null")
+    @Size(min = 3, max = 5)
     private String flightId;
 
     @NotBlank(message = "Origin cannot be blank or null")
@@ -38,9 +39,8 @@ public class FlightDTO {
     @NotNull(message = "Arrival time cannot be blank or null")
     private LocalDateTime arrivalTime;
 
-    @NotNull
+    @NotNull(message = "Price time cannot be blank or null")
     private Double price;
 
     private LocalTime duration;
-
 }

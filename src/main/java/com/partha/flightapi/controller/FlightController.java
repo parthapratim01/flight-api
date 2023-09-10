@@ -62,7 +62,7 @@ public class FlightController {
     @GetMapping("/flights")
     public ResponseEntity fetchFlights(
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
             @RequestParam(name = "sortedBy", defaultValue = "flightId") String sortedBy,
             @RequestParam(value = "searchString", required = false) String searchString
     ) throws JsonMappingException, JsonProcessingException
@@ -73,5 +73,18 @@ public class FlightController {
         Pageable page = PageRequest.of(pageNum, pageSize, Sort.by(sortedBy).ascending());
         List<FlightDTO> dtoList = flightApiService.findBySearchCriteria(builder, page);
         return new ResponseEntity<List<FlightDTO>>(dtoList, HttpStatus.OK);
+    }
+    @PutMapping("/flight")
+    public ResponseEntity updateFLightData( @RequestBody FlightDTO request) {
+        logger.info(" updateFLightData flights method call ");
+        return new ResponseEntity<FlightDTO>(flightApiService.updateFlight(request), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/flight/{flightId}")
+    public ResponseEntity deleteFlightData(@PathVariable String flightId){
+
+        logger.info(" deleteFlightData flights method call ");
+        flightApiService.deleteFlight(flightId);
+        return new ResponseEntity<String>("Flight data deleted successfully!.", HttpStatus.OK);
     }
 }

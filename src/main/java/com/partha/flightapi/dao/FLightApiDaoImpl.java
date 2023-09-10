@@ -1,5 +1,6 @@
 package com.partha.flightapi.dao;
 
+import com.partha.flightapi.Exception.FlightAlreadyExistsException;
 import com.partha.flightapi.Exception.FlightNotFoundException;
 import com.partha.flightapi.controller.FlightController;
 import com.partha.flightapi.entity.Flight;
@@ -32,7 +33,13 @@ public class FLightApiDaoImpl implements FlightApiDao{
     public void saveFlightDetails(Flight flight) {
 
         logger.info(" saveFlightDetails method call");
-        flightRepository.save(flight);
+        Flight existingFlight = flightRepository.findById(flight.getFlightId()).orElse(null);
+        if(existingFlight == null){
+            flightRepository.save(flight);
+        }else {
+            throw new FlightAlreadyExistsException("Flight already exists !");
+        }
+
     }
 
     @Override
@@ -53,6 +60,21 @@ public class FLightApiDaoImpl implements FlightApiDao{
 
     @Override
     public Page<Flight> findBySearchCriteria(Specification<Flight> spec, Pageable page) {
+        logger.info(" findBySearchCriteria method call");
         return flightRepository.findAll(spec, page);
+    }
+
+    @Override
+    public void deleteFlight(String flightId) {
+
+        logger.info(" deleteFlight method call");
+        Flight flight = flightRepository.findById(flightId)
+                .orElseThrow(() -> new FlightNotFoundException("No Flight found for id : " + flightId));
+        flightRepository.delete(flight);
+    }
+
+    @Override
+    public Flight updateFLight(Flight flight) {
+        return flightRepository.saveAndFlush(flight);
     }
 }

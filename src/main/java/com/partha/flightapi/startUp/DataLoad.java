@@ -33,11 +33,11 @@ import java.util.stream.Stream;
  * Date: 9/7/2023
  */
 
-@Component
-@Transactional
+/*@Component
+@Transactional*/
 public class DataLoad {
 
-    private static final Logger logger = LoggerFactory.getLogger(DataLoad.class);
+    /*private static final Logger logger = LoggerFactory.getLogger(DataLoad.class);
 
     private static final String flightsFile = "/data/flights-data.csv";
 
@@ -92,5 +92,5 @@ public class DataLoad {
             }
             logger.info("Flight duration update Complete ! ");
         };
-    }
+    }*/
 }

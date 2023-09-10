@@ -16,9 +16,8 @@ public interface FlightApiDao {
 
     public void saveFlightDetails(Flight flight);
     public Page<Flight> getAllFlight(Pageable page);
-
     public Flight getFlightById(String flightId);
-
     public Page<Flight> findBySearchCriteria(Specification<Flight> spec, Pageable page);
-
+    public void deleteFlight(String flightId);
+    public Flight updateFLight(Flight flight);
 }

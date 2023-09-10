@@ -1,5 +1,7 @@
 package com.partha.flightapi.service;
 
+import com.partha.flightapi.Exception.FlightNotFoundException;
+import com.partha.flightapi.Exception.IncorrectDataException;
 import com.partha.flightapi.controller.FlightController;
 import com.partha.flightapi.dao.queryOptimizer.FlightSpecificationBuilder;
 import com.partha.flightapi.dto.DomainDtoMapper;
@@ -34,16 +36,12 @@ public class FlightApiServiceImpl implements FlightApiService{
     public FlightDTO createFlight(FlightDTO request) {
 
         logger.info("createFlight method call");
+        if(request != null && request.getArrivalTime().equals(request.getDepartureTime())){
+            throw new IncorrectDataException("Flight data is not correct.");
+        }
         flightApiDao.saveFlightDetails(HelperUtility.getEntity(request));
         return request;
     }
-
-    /*@Override
-    public List<FlightDTO> fetchAllFlights() {
-
-        logger.info("fetchAllFlights method call");
-        return HelperUtility.convertEntityToDTOList(flightApiDao.getAllFlight());
-    }*/
 
     @Override
     public FlightDTO fetchFlightById(String flightId) {
@@ -64,6 +62,30 @@ public class FlightApiServiceImpl implements FlightApiService{
         }else {
             flights = flightApiDao.getAllFlight(page);
             return DomainDtoMapper.getFlightDTOs(flights);
+        }
+    }
+
+    @Override
+    public void deleteFlight(String flightId) {
+        flightApiDao.deleteFlight(flightId);
+    }
+
+    @Override
+    public FlightDTO updateFlight(FlightDTO request) {
+        if(request != null && request.getFlightId() != null
+                && !request.getFlightId().isEmpty()){
+            if(request.getArrivalTime().equals(request.getDepartureTime())){
+                throw new IncorrectDataException("Flight data is not correct.");
+            }else {
+                Flight flight = flightApiDao.getFlightById(request.getFlightId());
+                flight.setDepartureTime(request.getDepartureTime());
+                flight.setArrivalTime(request.getArrivalTime());
+                flight.setDuration(request.getDuration());
+                flightApiDao.updateFLight(flight);
+                return HelperUtility.getFlightDTO(flightApiDao.updateFLight(flight));
+            }
+        }else {
+            throw new FlightNotFoundException("No Flight found for id : ");
         }
     }
 }

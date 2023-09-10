@@ -24,6 +24,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(FlightAlreadyExistsException.class)
+    public ResponseEntity<String> flightExceptionHandler(FlightAlreadyExistsException exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IncorrectDataException.class)
+    public ResponseEntity<String> flightExceptionHandler(IncorrectDataException exception){
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<String>> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException m){
         return new ResponseEntity<List<String>>(m.getFieldErrors().stream()

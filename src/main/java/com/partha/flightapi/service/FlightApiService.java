@@ -16,10 +16,8 @@ import java.util.List;
 public interface FlightApiService {
 
     public FlightDTO createFlight(FlightDTO request);
-
-    //public List<FlightDTO> fetchAllFlights();
-
     public FlightDTO fetchFlightById(String flightId);
-
     public List<FlightDTO> findBySearchCriteria(FlightSpecificationBuilder builder, Pageable page);
+    public void deleteFlight(String flightId) ;
+    public FlightDTO updateFlight(FlightDTO request) ;
 }
