@@ -1,6 +1,5 @@
 package com.partha.flightapi.dao.queryOptimizer;
 
-import com.partha.flightapi.controller.FlightController;
 import com.partha.flightapi.entity.Flight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

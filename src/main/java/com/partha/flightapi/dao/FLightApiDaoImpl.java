@@ -2,7 +2,6 @@ package com.partha.flightapi.dao;
 
 import com.partha.flightapi.Exception.FlightAlreadyExistsException;
 import com.partha.flightapi.Exception.FlightNotFoundException;
-import com.partha.flightapi.controller.FlightController;
 import com.partha.flightapi.entity.Flight;
 import com.partha.flightapi.repository.FlightRepository;
 import org.slf4j.Logger;
@@ -12,9 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * User: Partha Pratim Baral

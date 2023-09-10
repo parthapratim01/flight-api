@@ -39,13 +39,6 @@ public class FlightController {
     @Autowired
     private ObjectMapper jacksonObjectMapper;
 
-    @GetMapping("/ping")
-    public String pingService() {
-
-        logger.info(" pingService in method call");
-        return "Flight Service is Up and running";
-    }
-
     @PostMapping("/flights")
     public ResponseEntity createFlight(@Valid @RequestBody FlightDTO request) {
 
