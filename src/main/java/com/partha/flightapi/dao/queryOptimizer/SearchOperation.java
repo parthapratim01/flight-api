@@ -2,7 +2,6 @@ package com.partha.flightapi.dao.queryOptimizer;
 
 /**
  * User: Partha Pratim Baral
- * Date: 9/7/2023
  */
 
 public enum SearchOperation {

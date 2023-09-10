@@ -12,7 +12,6 @@ import java.time.LocalTime;
 /**
  * User: Partha Pratim Baral
  * Topic :
- * Date: 9/7/2023
  */
 
 @Entity

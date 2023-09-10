@@ -14,7 +14,6 @@ import java.util.Objects;
 /**
  * User: Partha Pratim Baral
  * Topic :
- * Date: 9/7/2023
  */
 public class FlightSpecification implements Specification<Flight> {
 

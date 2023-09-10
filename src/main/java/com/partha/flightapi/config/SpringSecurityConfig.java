@@ -16,10 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * User: Partha Pratim Baral
  * Topic :
- * Date: 9/10/2023
  */
-
-
 
 @Configuration
 public class SpringSecurityConfig {

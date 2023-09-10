@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 /**
  * User: Partha Pratim Baral
- * Date: 9/7/2023
  */
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, String>,
