@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -36,6 +37,8 @@ public class FlightControllerTest {
     private FlightApiService flightApiService;
     @InjectMocks
     private FlightController flightController;
+
+
 
     @BeforeEach
     public void initEach(){
@@ -64,7 +67,6 @@ public class FlightControllerTest {
 
     @Test
     public void findFlightById() throws Exception{
-
         when(flightApiService.fetchFlightById(any())).thenReturn(TestMockDataPrep.getMockedFlightDataById());
         ResponseEntity<FlightDTO> response = flightController.findFlightById("B101");
         assertEquals("B101", response.getBody().getFlightId());
@@ -73,9 +75,7 @@ public class FlightControllerTest {
 
     @Test
     public void updateFlightData() throws Exception{
-
         when(flightApiService.updateFlight(any())).thenReturn(TestMockDataPrep.getUpdatedFlightData());
-
         FlightDTO dto = new FlightDTO("C101", null, null,
                 DateUtil.toLocalDateTime("2023-08-31 11:00:00"),
                 DateUtil.toLocalDateTime("2023-08-31 16:00:00"), 750.0,
@@ -87,10 +87,16 @@ public class FlightControllerTest {
 
     @Test
     public void deleteFlightData() throws Exception{
-
         String flightId = "D201";
         flightApiService.deleteFlight(flightId);
         FlightDTO flight = this.flightApiService.fetchFlightById(flightId);
         assertTrue(flight == null);
+    }
+
+    @Test
+    public void findFlightById_notFound() throws Exception{
+        when(flightApiService.fetchFlightById("B101")).thenReturn(null);
+        ResponseEntity<FlightDTO> response = flightController.findFlightById("B101");
+        assertEquals(null, response.getBody());
     }
 }
