@@ -1,6 +1,7 @@
 package com.partha.flightapi.utility;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -14,5 +15,11 @@ public class DateUtil {
 
     public static LocalDateTime toLocalDateTime(String strDate) {
         return LocalDateTime.parse(strDate, dateFormatter);
+    }
+
+    public static LocalTime toLocalTime(String strDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm:ss");
+        LocalTime t = LocalTime.parse(strDate, formatter);
+        return t;
     }
 }

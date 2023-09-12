@@ -64,7 +64,7 @@ public class FlightController {
                 searchString, SearchDTO.class);
         Pageable page = PageRequest.of(pageNum, pageSize, Sort.by(sortedBy).ascending());
         List<FlightDTO> dtoList = flightApiService.findBySearchCriteria(builder, page);
-        return new ResponseEntity<List<FlightDTO>>(dtoList, HttpStatus.OK);
+            return new ResponseEntity<List<FlightDTO>>(dtoList, HttpStatus.OK);
     }
     @PutMapping("/flight")
     public ResponseEntity updateFLightData( @RequestBody FlightDTO request) {
