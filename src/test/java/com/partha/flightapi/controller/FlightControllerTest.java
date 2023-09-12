@@ -1,7 +1,13 @@
 package com.partha.flightapi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.partha.flightapi.dao.FLightApiDaoImpl;
+import com.partha.flightapi.dao.FlightApiDao;
 import com.partha.flightapi.dto.FlightDTO;
+import com.partha.flightapi.entity.Flight;
+import com.partha.flightapi.repository.FlightRepository;
 import com.partha.flightapi.service.FlightApiService;
+import com.partha.flightapi.service.FlightApiServiceImpl;
 import com.partha.flightapi.testUtility.TestMockDataPrep;
 import com.partha.flightapi.utility.DateUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,17 +16,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -34,11 +45,16 @@ import static org.mockito.Mockito.when;
 public class FlightControllerTest {
 
     @Mock
-    private FlightApiService flightApiService;
+    private FlightApiServiceImpl flightApiService;
+    @Mock
+    private FLightApiDaoImpl flightApiDao;
+
+    @Mock
+    private ObjectMapper jacksonObjectMapper;
+    @Mock
+    private FlightRepository flightRepository;
     @InjectMocks
     private FlightController flightController;
-
-
 
     @BeforeEach
     public void initEach(){

@@ -24,6 +24,17 @@ public class TestMockDataPrep {
         return list;
     }
 
+    public static List<Flight> getMockedEntity(){
+        Flight entitty1 = new Flight("A101", "AMS", "DEL", DateUtil.toLocalDateTime("2023-08-31 18:45:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 850.0, null);
+        Flight entitty2 = new Flight("A201", "LHR", "BOM", DateUtil.toLocalDateTime("2023-08-31 11:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 600.0, null);
+        List<Flight> list = new ArrayList<>();
+        list.add(entitty1);
+        list.add(entitty2);
+        return list;
+    }
+
     public static FlightDTO getMockedCreateFlightData(){
         FlightDTO dto = new FlightDTO("A201", "AMS", "DEL", DateUtil.toLocalDateTime("2023-08-31 18:45:00"),
                 DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 850.0, null);

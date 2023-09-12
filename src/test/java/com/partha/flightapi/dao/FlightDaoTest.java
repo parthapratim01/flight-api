@@ -1,4 +1,4 @@
-package com.partha.flightapi.controller;
+package com.partha.flightapi.dao;
 
 import com.partha.flightapi.dao.FLightApiDaoImpl;
 import com.partha.flightapi.entity.Flight;

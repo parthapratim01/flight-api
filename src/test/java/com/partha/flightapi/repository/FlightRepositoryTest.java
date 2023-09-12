@@ -1,4 +1,4 @@
-package com.partha.flightapi.controller;
+package com.partha.flightapi.repository;
 
 import com.partha.flightapi.entity.Flight;
 import com.partha.flightapi.repository.FlightRepository;
