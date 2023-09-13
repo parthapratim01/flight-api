@@ -27,6 +27,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -55,6 +56,7 @@ public class FlightControllerTest {
     private FlightRepository flightRepository;
     @InjectMocks
     private FlightController flightController;
+    FlightDTO dto;
 
     @BeforeEach
     public void initEach(){
@@ -68,6 +70,27 @@ public class FlightControllerTest {
         when(flightApiService.findBySearchCriteria(any(), any())).thenReturn(TestMockDataPrep.getMockedData());
         ResponseEntity<List<FlightDTO>> response = flightController.fetchFlights(0, 20, "flightId", "ASC", null);
         assertEquals(2, response.getBody().size());
+    }
+
+    @Test
+    public void testFetchFlights_OrderByPriceDesc() throws Exception{
+
+        when(flightApiService.findBySearchCriteria(any(), any())).thenReturn(TestMockDataPrep.getOrderData());
+        ResponseEntity<List<FlightDTO>> response = flightController.fetchFlights(0, 20, "flightId", "DESC", null);
+        assertEquals(3, response.getBody().size());
+        assertEquals(850.0, response.getBody().get(0).getPrice());
+        assertEquals(700.0, response.getBody().get(1).getPrice());
+        assertEquals(600.0, response.getBody().get(2).getPrice());
+    }
+    @Test
+    public void testFetchFlights_OrderByDurationDesc() throws Exception{
+
+        when(flightApiService.findBySearchCriteria(any(), any())).thenReturn(TestMockDataPrep.getOrderDataDuration());
+        ResponseEntity<List<FlightDTO>> response = flightController.fetchFlights(0, 20, "flightId", "DESC", null);
+        assertEquals(3, response.getBody().size());
+        assertEquals(DateUtil.toLocalTime("06:00:00"), response.getBody().get(0).getDuration());
+        assertEquals(DateUtil.toLocalTime("05:00:00"), response.getBody().get(1).getDuration());
+        assertEquals(DateUtil.toLocalTime("04:30:00"), response.getBody().get(2).getDuration());
     }
 
     @Test
@@ -87,6 +110,14 @@ public class FlightControllerTest {
         ResponseEntity<FlightDTO> response = flightController.findFlightById("B101");
         assertEquals("B101", response.getBody().getFlightId());
         assertEquals("AMS", response.getBody().getOrigin());
+    }
+
+    @Test
+    public void findFlightById_NotFound() throws Exception{
+        String flightId = "C201";
+        when(flightApiService.fetchFlightById(any())).thenReturn(dto);
+        ResponseEntity<FlightDTO> response = flightController.findFlightById("C201");
+        assertEquals(null, response.getBody());
     }
 
     @Test

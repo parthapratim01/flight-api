@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * User: Partha Pratim Baral
@@ -76,5 +79,42 @@ public class TestMockDataPrep {
         list.add(entitty3);
         flights = new PageImpl<>(list);
         return flights;
+    }
+
+    public static List<FlightDTO> getOrderData(){
+        List<FlightDTO> list = new ArrayList<>();
+        Page<Flight> flights;
+        FlightDTO dto1 = new FlightDTO("A101", "AMS", "DEL", DateUtil.toLocalDateTime("2023-08-31 12:00:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 850.0, DateUtil.toLocalTime("5:00:00"));
+        FlightDTO dto2 = new FlightDTO("A201", "LHR", "BOM", DateUtil.toLocalDateTime("2023-08-31 13:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:30:00"), 600.0, DateUtil.toLocalTime("4:00:00"));
+        FlightDTO dto3 = new FlightDTO("A301", "BOM", "LHR", DateUtil.toLocalDateTime("2023-08-31 14:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 20:30:00"), 700.0, DateUtil.toLocalTime("6:00:00"));
+
+        list.add(dto1);
+        list.add(dto2);
+        list.add(dto3);
+        List l1 = list.stream().sorted((o1, o2) -> o2.getPrice().compareTo(o1.getPrice()))
+                .collect(Collectors.toList());
+        return l1;
+
+    }
+
+    public static List<FlightDTO> getOrderDataDuration(){
+        List<FlightDTO> list = new ArrayList<>();
+        FlightDTO dto1 = new FlightDTO("A101", "AMS", "DEL", DateUtil.toLocalDateTime("2023-08-31 12:00:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 850.0, DateUtil.toLocalTime("5:00:00"));
+        FlightDTO dto2 = new FlightDTO("A201", "LHR", "BOM", DateUtil.toLocalDateTime("2023-08-31 13:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 18:00:00"), 600.0, DateUtil.toLocalTime("4:30:00"));
+        FlightDTO dto3 = new FlightDTO("A301", "BOM", "LHR", DateUtil.toLocalDateTime("2023-08-31 14:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 20:30:00"), 700.0, DateUtil.toLocalTime("6:00:00"));
+
+        list.add(dto1);
+        list.add(dto2);
+        list.add(dto3);
+        List l1 = list.stream().sorted((o1, o2) -> o2.getDuration().compareTo(o1.getDuration()))
+                .collect(Collectors.toList());
+        return l1;
+
     }
 }
