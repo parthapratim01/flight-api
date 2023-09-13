@@ -3,6 +3,7 @@ package com.partha.flightapi.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.partha.flightapi.Exception.IncorrectDataException;
 import com.partha.flightapi.dao.queryOptimizer.FlightSpecificationBuilder;
 import com.partha.flightapi.dto.FlightDTO;
 import com.partha.flightapi.dto.SearchDTO;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.validation.Valid;
 import java.util.List;

@@ -65,6 +65,7 @@ public class FlightApiServiceImpl implements FlightApiService{
 
     @Override
     public void deleteFlight(String flightId) {
+        logger.info(" deleteFlight flights method call ");
         flightApiDao.deleteFlight(flightId);
     }
 

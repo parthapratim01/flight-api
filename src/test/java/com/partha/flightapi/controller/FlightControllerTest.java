@@ -66,7 +66,7 @@ public class FlightControllerTest {
     public void testFetchFlights() throws Exception{
 
         when(flightApiService.findBySearchCriteria(any(), any())).thenReturn(TestMockDataPrep.getMockedData());
-        ResponseEntity<List<FlightDTO>> response = flightController.fetchFlights(0, 20, "flightId", null);
+        ResponseEntity<List<FlightDTO>> response = flightController.fetchFlights(0, 20, "flightId", "ASC", null);
         assertEquals(2, response.getBody().size());
     }
 

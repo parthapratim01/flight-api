@@ -3,6 +3,8 @@ package com.partha.flightapi.testUtility;
 import com.partha.flightapi.dto.FlightDTO;
 import com.partha.flightapi.entity.Flight;
 import com.partha.flightapi.utility.DateUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +59,22 @@ public class TestMockDataPrep {
         Flight flight = new Flight("B101", "AMS", "BOM", DateUtil.toLocalDateTime("2023-08-31 12:00:00"),
                 DateUtil.toLocalDateTime("2023-08-31 19:30:00"), 750.0, DateUtil.toLocalTime("7:30:00"));
         return flight;
+    }
+
+    public static Page<Flight> getData(){
+        List<Flight> list = new ArrayList<>();
+        Page<Flight> flights;
+        Flight entitty1 = new Flight("A101", "AMS", "DEL", DateUtil.toLocalDateTime("2023-08-31 18:45:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 850.0, null);
+        Flight entitty2 = new Flight("A201", "LHR", "BOM", DateUtil.toLocalDateTime("2023-08-31 11:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 17:00:00"), 600.0, null);
+        Flight entitty3 = new Flight("A301", "BOM", "LHR", DateUtil.toLocalDateTime("2023-08-31 12:30:00"),
+                DateUtil.toLocalDateTime("2023-08-31 16:00:00"), 600.0, null);
+
+        list.add(entitty1);
+        list.add(entitty2);
+        list.add(entitty3);
+        flights = new PageImpl<>(list);
+        return flights;
     }
 }
