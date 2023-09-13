@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
 
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.antMatchers("*/h2-console/*").permitAll();
+                    authorize.antMatchers("*/h2-console/**").permitAll();
                     authorize.antMatchers("/v1/*").authenticated();
                 }).httpBasic(Customizer.withDefaults());
         return http.build();

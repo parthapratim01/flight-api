@@ -56,13 +56,21 @@ public class FlightController {
             @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
             @RequestParam(name = "sortedBy", defaultValue = "flightId") String sortedBy,
+            @RequestParam(name = "orderBy", defaultValue = "ASC") String orderBy,
             @RequestParam(value = "searchString", required = false) String searchString
     ) throws JsonMappingException, JsonProcessingException
     {
         logger.info(" fetchFlights flights method call ");
         FlightSpecificationBuilder builder = HelperUtility.getSearchDTO(jacksonObjectMapper,
                 searchString, SearchDTO.class);
-        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by(sortedBy).ascending());
+        Pageable page = null;
+        if(null != orderBy && !orderBy.isEmpty()){
+            if(orderBy.equalsIgnoreCase("DESC")){
+                page = PageRequest.of(pageNum, pageSize, Sort.by(sortedBy).descending());
+            }else {
+                page = PageRequest.of(pageNum, pageSize, Sort.by(sortedBy).ascending());
+            }
+        }
         List<FlightDTO> dtoList = flightApiService.findBySearchCriteria(builder, page);
             return new ResponseEntity<List<FlightDTO>>(dtoList, HttpStatus.OK);
     }
