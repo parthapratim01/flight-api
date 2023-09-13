@@ -1,0 +1,12 @@
+com.partha.flightapi
+com.partha.flightapi.config
+com.partha.flightapi.controller
+com.partha.flightapi.dao
+com.partha.flightapi.dao.queryOptimizer
+com.partha.flightapi.dto
+com.partha.flightapi.entity
+com.partha.flightapi.Exception
+com.partha.flightapi.repository
+com.partha.flightapi.service
+com.partha.flightapi.testUtility
+com.partha.flightapi.utility
